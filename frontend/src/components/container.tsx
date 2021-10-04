@@ -12,7 +12,7 @@ const Container: React.FC<ContainerProps> = ({ children, as = 'div' }) => {
       style={{
         maxWidth: 'var(--size-max-width)',
         margin: '0 auto',
-        padding: 'var(--space-2xl) var(--size-gutter)',
+        padding: '1rem',
       }}
     >
       {children}

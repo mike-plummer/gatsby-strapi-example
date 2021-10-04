@@ -39,7 +39,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       .forEach((page) => {
         console.info(`Creating page '${page.id}' @ '${page.slug}'`);
         createPage({
-          path: `${page.slug}`,
+          path: `/${page.slug || ''}`,
           component: wlPage,
           context: {
             id: page.id

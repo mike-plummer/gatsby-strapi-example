@@ -29,7 +29,7 @@ const Navigation: React.FC<NavigationProps> = () => {
       <ul className={styles.navigation}>
         {data.allStrapiPages?.nodes?.map((page) => (
           <li key={page!.id} className={styles.navigationItem}>
-            <Link to={page!.slug!} activeClassName="active">
+            <Link to={`/${page!.slug || ''}`} activeClassName="active">
               {page!.shortName}
             </Link>
           </li>
