@@ -11,21 +11,26 @@ interface SeoProps {
 }
 
 const Seo: React.FC<SeoProps> = ({ description = '', lang = 'en', meta = [], title, image }) => {
-  const { site } = useStaticQuery(
+  const { strapi } = useStaticQuery<GatsbyTypes.GlobalSeoQuery>(
     graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
+      query GlobalSeo {
+          strapi {
+              global {
+                  metadata {
+                      metaTitle
+                      metaDescription
+                      shareImage {
+                          url
+                      }
+                  }
+              }
           }
-        }
       }
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const metaDescription = description || strapi?.global?.metadata?.metaDescription;
+  const defaultTitle = strapi?.global?.metadata?.metaTitle;
 
   return (
     <Helmet
@@ -63,10 +68,6 @@ const Seo: React.FC<SeoProps> = ({ description = '', lang = 'en', meta = [], tit
         {
           name: `twitter:card`,
           content: `summary_large_image`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
         },
         {
           name: `twitter:title`,

@@ -16,13 +16,25 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    // FIXME This plugin does not support nested introspection of DynamicZone component types which will be a big part of this project.
+    //      Support is pending in the next major version release (maybe alongside Strapi v4 - see https://github.com/strapi/gatsby-source-strapi/issues/191#issuecomment-846007145)
+    // {
+    //   resolve: "gatsby-source-strapi",
+    //   options: {
+    //     apiURL: process.env.API_URL || "http://localhost:1337",
+    //     collectionTypes: ["pages"],
+    //     singleTypes: [`global`],
+    //     queryLimit: 1000,
+    //   },
+    // },
+    // FIXME Using this plugin instead of `gatsby-source-graphql` due to issue with dynamic component type schemas
+    //       Investigate switching back to Strapi plugin once support is added
     {
-      resolve: "gatsby-source-strapi",
+      resolve: 'gatsby-source-graphql',
       options: {
-        apiURL: process.env.API_URL || "http://localhost:1337",
-        collectionTypes: ["pages"],
-        singleTypes: [`global`],
-        queryLimit: 1000,
+        typeName: 'Strapi',
+        fieldName: 'strapi',
+        url: 'http://localhost:1337/graphql',
       },
     },
     {

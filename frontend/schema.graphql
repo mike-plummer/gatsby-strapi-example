@@ -12,6 +12,10 @@ interface Node {
     parent: Node
 }
 
+union Strapi_Morph = Strapi_ComponentElementsFeature | Strapi_ComponentElementsFeatureColumn | Strapi_ComponentElementsFeatureRow | Strapi_ComponentElementsFooterSection | Strapi_ComponentElementsLogos | Strapi_ComponentElementsNotificationBanner | Strapi_ComponentElementsPlan | Strapi_ComponentElementsTestimonial | Strapi_ComponentLayoutFooter | Strapi_ComponentLayoutNavbar | Strapi_ComponentLinksButton | Strapi_ComponentLinksButtonLink | Strapi_ComponentLinksLink | Strapi_ComponentMetaMetadata | Strapi_ComponentSectionsBottomActions | Strapi_ComponentSectionsFeatureColumnsGroup | Strapi_ComponentSectionsFeatureRowsGroup | Strapi_ComponentSectionsHero | Strapi_ComponentSectionsLargeVideo | Strapi_ComponentSectionsLeadForm | Strapi_ComponentSectionsPricing | Strapi_ComponentSectionsRichText | Strapi_ComponentSectionsTestimonialsGroup | Strapi_Global | Strapi_I18NLocale | Strapi_LeadFormSubmissions | Strapi_LeadFormSubmissionsAggregator | Strapi_LeadFormSubmissionsConnection | Strapi_LeadFormSubmissionsConnectionCreated_at | Strapi_LeadFormSubmissionsConnectionEmail | Strapi_LeadFormSubmissionsConnectionId | Strapi_LeadFormSubmissionsConnectionLocation | Strapi_LeadFormSubmissionsConnectionStatus | Strapi_LeadFormSubmissionsConnectionUpdated_at | Strapi_LeadFormSubmissionsGroupBy | Strapi_Page | Strapi_PageAggregator | Strapi_PageConnection | Strapi_PageConnectionCreated_at | Strapi_PageConnectionId | Strapi_PageConnectionLocale | Strapi_PageConnectionMetadata | Strapi_PageConnectionShortName | Strapi_PageConnectionSlug | Strapi_PageConnectionStatus | Strapi_PageConnectionUpdated_at | Strapi_PageGroupBy | Strapi_UploadFile | Strapi_UploadFileAggregator | Strapi_UploadFileAggregatorAvg | Strapi_UploadFileAggregatorMax | Strapi_UploadFileAggregatorMin | Strapi_UploadFileAggregatorSum | Strapi_UploadFileConnection | Strapi_UploadFileConnectionAlternativeText | Strapi_UploadFileConnectionCaption | Strapi_UploadFileConnectionCreated_at | Strapi_UploadFileConnectionExt | Strapi_UploadFileConnectionFormats | Strapi_UploadFileConnectionHash | Strapi_UploadFileConnectionHeight | Strapi_UploadFileConnectionId | Strapi_UploadFileConnectionMime | Strapi_UploadFileConnectionName | Strapi_UploadFileConnectionPreviewUrl | Strapi_UploadFileConnectionProvider | Strapi_UploadFileConnectionProvider_metadata | Strapi_UploadFileConnectionSize | Strapi_UploadFileConnectionUpdated_at | Strapi_UploadFileConnectionUrl | Strapi_UploadFileConnectionWidth | Strapi_UploadFileGroupBy | Strapi_UserPermissionsPasswordPayload | Strapi_UsersPermissionsLoginPayload | Strapi_UsersPermissionsMe | Strapi_UsersPermissionsMeRole | Strapi_UsersPermissionsPermission | Strapi_UsersPermissionsRole | Strapi_UsersPermissionsRoleAggregator | Strapi_UsersPermissionsRoleConnection | Strapi_UsersPermissionsRoleConnectionDescription | Strapi_UsersPermissionsRoleConnectionId | Strapi_UsersPermissionsRoleConnectionName | Strapi_UsersPermissionsRoleConnectionType | Strapi_UsersPermissionsRoleGroupBy | Strapi_UsersPermissionsUser | Strapi_UsersPermissionsUserAggregator | Strapi_UsersPermissionsUserConnection | Strapi_UsersPermissionsUserConnectionBlocked | Strapi_UsersPermissionsUserConnectionConfirmed | Strapi_UsersPermissionsUserConnectionCreated_at | Strapi_UsersPermissionsUserConnectionEmail | Strapi_UsersPermissionsUserConnectionId | Strapi_UsersPermissionsUserConnectionProvider | Strapi_UsersPermissionsUserConnectionRole | Strapi_UsersPermissionsUserConnectionUpdated_at | Strapi_UsersPermissionsUserConnectionUsername | Strapi_UsersPermissionsUserGroupBy | Strapi_createLeadFormSubmissionPayload | Strapi_createPagePayload | Strapi_createRolePayload | Strapi_createUserPayload | Strapi_deleteFilePayload | Strapi_deleteGlobalPayload | Strapi_deleteLeadFormSubmissionPayload | Strapi_deletePagePayload | Strapi_deleteRolePayload | Strapi_deleteUserPayload | Strapi_updateGlobalPayload | Strapi_updateLeadFormSubmissionPayload | Strapi_updatePagePayload | Strapi_updateRolePayload | Strapi_updateUserPayload
+
+union Strapi_PageContentSectionsDynamicZone = Strapi_ComponentSectionsBottomActions | Strapi_ComponentSectionsFeatureColumnsGroup | Strapi_ComponentSectionsFeatureRowsGroup | Strapi_ComponentSectionsHero | Strapi_ComponentSectionsLargeVideo | Strapi_ComponentSectionsLeadForm | Strapi_ComponentSectionsPricing | Strapi_ComponentSectionsRichText | Strapi_ComponentSectionsTestimonialsGroup
+
 type Directory implements Node {
     absolutePath: String!
     accessTime(
@@ -254,7 +258,6 @@ type File implements Node {
     size: Int!
     sourceInstanceName: String!
     uid: Int!
-    url: String
 }
 
 type FileConnection {
@@ -286,6 +289,47 @@ type FileGroupConnection {
     nodes: [File!]!
     pageInfo: PageInfo!
     sum(field: FileFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type GraphQLSource implements Node {
+    children: [Node!]!
+    fieldName: String
+    id: ID!
+    internal: Internal!
+    parent: Node
+    typeName: String
+}
+
+type GraphQLSourceConnection {
+    distinct(field: GraphQLSourceFieldsEnum!): [String!]!
+    edges: [GraphQLSourceEdge!]!
+    group(field: GraphQLSourceFieldsEnum!, limit: Int, skip: Int): [GraphQLSourceGroupConnection!]!
+    max(field: GraphQLSourceFieldsEnum!): Float
+    min(field: GraphQLSourceFieldsEnum!): Float
+    nodes: [GraphQLSource!]!
+    pageInfo: PageInfo!
+    sum(field: GraphQLSourceFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type GraphQLSourceEdge {
+    next: GraphQLSource
+    node: GraphQLSource!
+    previous: GraphQLSource
+}
+
+type GraphQLSourceGroupConnection {
+    distinct(field: GraphQLSourceFieldsEnum!): [String!]!
+    edges: [GraphQLSourceEdge!]!
+    field: String!
+    fieldValue: String
+    group(field: GraphQLSourceFieldsEnum!, limit: Int, skip: Int): [GraphQLSourceGroupConnection!]!
+    max(field: GraphQLSourceFieldsEnum!): Float
+    min(field: GraphQLSourceFieldsEnum!): Float
+    nodes: [GraphQLSource!]!
+    pageInfo: PageInfo!
+    sum(field: GraphQLSourceFieldsEnum!): Float
     totalCount: Int!
 }
 
@@ -508,24 +552,23 @@ type PageInfo {
 type Query {
     allDirectory(filter: DirectoryFilterInput, limit: Int, skip: Int, sort: DirectorySortInput): DirectoryConnection!
     allFile(filter: FileFilterInput, limit: Int, skip: Int, sort: FileSortInput): FileConnection!
+    allGraphQlSource(filter: GraphQLSourceFilterInput, limit: Int, skip: Int, sort: GraphQLSourceSortInput): GraphQLSourceConnection!
     allImageSharp(filter: ImageSharpFilterInput, limit: Int, skip: Int, sort: ImageSharpSortInput): ImageSharpConnection!
     allSite(filter: SiteFilterInput, limit: Int, skip: Int, sort: SiteSortInput): SiteConnection!
     allSiteBuildMetadata(filter: SiteBuildMetadataFilterInput, limit: Int, skip: Int, sort: SiteBuildMetadataSortInput): SiteBuildMetadataConnection!
     allSiteFunction(filter: SiteFunctionFilterInput, limit: Int, skip: Int, sort: SiteFunctionSortInput): SiteFunctionConnection!
     allSitePage(filter: SitePageFilterInput, limit: Int, skip: Int, sort: SitePageSortInput): SitePageConnection!
     allSitePlugin(filter: SitePluginFilterInput, limit: Int, skip: Int, sort: SitePluginSortInput): SitePluginConnection!
-    allStrapiGlobal(filter: StrapiGlobalFilterInput, limit: Int, skip: Int, sort: StrapiGlobalSortInput): StrapiGlobalConnection!
-    allStrapiPages(filter: StrapiPagesFilterInput, limit: Int, skip: Int, sort: StrapiPagesSortInput): StrapiPagesConnection!
     directory(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): Directory
-    file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childImageSharp: ImageSharpFilterInput, children: NodeFilterListInput, childrenImageSharp: ImageSharpFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput, url: StringQueryOperatorInput): File
+    file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childImageSharp: ImageSharpFilterInput, children: NodeFilterListInput, childrenImageSharp: ImageSharpFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): File
+    graphQlSource(children: NodeFilterListInput, fieldName: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, typeName: StringQueryOperatorInput): GraphQLSource
     imageSharp(children: NodeFilterListInput, fixed: ImageSharpFixedFilterInput, fluid: ImageSharpFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, original: ImageSharpOriginalFilterInput, parent: NodeFilterInput, resize: ImageSharpResizeFilterInput): ImageSharp
     site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput): Site
     siteBuildMetadata(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput): SiteBuildMetadata
     siteFunction(absoluteCompiledFilePath: StringQueryOperatorInput, children: NodeFilterListInput, functionRoute: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, matchPath: StringQueryOperatorInput, originalAbsoluteFilePath: StringQueryOperatorInput, originalRelativeFilePath: StringQueryOperatorInput, parent: NodeFilterInput, pluginName: StringQueryOperatorInput, relativeCompiledFilePath: StringQueryOperatorInput): SiteFunction
     sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, matchPath: StringQueryOperatorInput, mode: StringQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
     sitePlugin(browserAPIs: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, nodeAPIs: StringQueryOperatorInput, packageJson: SitePluginPackageJsonFilterInput, parent: NodeFilterInput, pluginFilepath: StringQueryOperatorInput, pluginOptions: SitePluginPluginOptionsFilterInput, resolve: StringQueryOperatorInput, ssrAPIs: StringQueryOperatorInput, version: StringQueryOperatorInput): SitePlugin
-    strapiGlobal(children: NodeFilterListInput, created_at: DateQueryOperatorInput, favicon: StrapiGlobalFaviconFilterInput, footer: StrapiGlobalFooterFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, locale: StringQueryOperatorInput, localizations: StrapiGlobalLocalizationsFilterListInput, metaTitleSuffix: StringQueryOperatorInput, metadata: StrapiGlobalMetadataFilterInput, navbar: StrapiGlobalNavbarFilterInput, notificationBanner: StrapiGlobalNotificationBannerFilterInput, parent: NodeFilterInput, strapiId: IntQueryOperatorInput, updated_at: DateQueryOperatorInput): StrapiGlobal
-    strapiPages(children: NodeFilterListInput, contentSections: JSONQueryOperatorInput, created_at: DateQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, locale: StringQueryOperatorInput, localizations: StrapiPagesLocalizationsFilterListInput, metadata: StrapiPagesMetadataFilterInput, parent: NodeFilterInput, shortName: StringQueryOperatorInput, slug: StringQueryOperatorInput, status: StringQueryOperatorInput, strapiId: IntQueryOperatorInput, updated_at: DateQueryOperatorInput): StrapiPages
+    strapi: Strapi!
 }
 
 type Site implements Node {
@@ -802,16 +845,15 @@ type SitePluginPackageJsonPeerDependencies {
 
 type SitePluginPluginOptions {
     allExtensions: Boolean
-    apiURL: String
     background_color: String
     base64Width: Int
     cacheDigest: String
     cache_busting_mode: String
-    collectionTypes: [String]
     crossOrigin: String
     defaultQuality: Int
     display: String
     failOnError: Boolean
+    fieldName: String
     icon: String
     include_favicon: Boolean
     isTSX: Boolean
@@ -821,13 +863,13 @@ type SitePluginPluginOptions {
     outputPath: String
     path: String
     pathCheck: Boolean
-    queryLimit: Int
     short_name: String
-    singleTypes: [String]
     start_url: String
     stripMetadata: Boolean
     theme_color: String
     theme_color_in_head: Boolean
+    typeName: String
+    url: String
 }
 
 type SiteSiteMetadata {
@@ -837,601 +879,738 @@ type SiteSiteMetadata {
     title: String
 }
 
-type StrapiGlobal implements Node {
-    children: [Node!]!
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    favicon: StrapiGlobalFavicon
-    footer: StrapiGlobalFooter
+type Strapi {
+    files(limit: Int, publicationState: Strapi_PublicationState, sort: String, start: Int, where: Strapi_JSON): [Strapi_UploadFile]
+    filesConnection(limit: Int, sort: String, start: Int, where: Strapi_JSON): Strapi_UploadFileConnection
+    global(locale: String, publicationState: Strapi_PublicationState): Strapi_Global
+    leadFormSubmission(id: ID!, publicationState: Strapi_PublicationState): Strapi_LeadFormSubmissions
+    leadFormSubmissions(limit: Int, publicationState: Strapi_PublicationState, sort: String, start: Int, where: Strapi_JSON): [Strapi_LeadFormSubmissions]
+    leadFormSubmissionsConnection(limit: Int, sort: String, start: Int, where: Strapi_JSON): Strapi_LeadFormSubmissionsConnection
+    me: Strapi_UsersPermissionsMe
+    page(id: ID!, publicationState: Strapi_PublicationState): Strapi_Page
+    pages(limit: Int, locale: String, publicationState: Strapi_PublicationState, sort: String, start: Int, where: Strapi_JSON): [Strapi_Page]
+    pagesConnection(limit: Int, locale: String, sort: String, start: Int, where: Strapi_JSON): Strapi_PageConnection
+    role(id: ID!, publicationState: Strapi_PublicationState): Strapi_UsersPermissionsRole
+    "Retrieve all the existing roles. You can't apply filters on this query."
+    roles(limit: Int, publicationState: Strapi_PublicationState, sort: String, start: Int, where: Strapi_JSON): [Strapi_UsersPermissionsRole]
+    rolesConnection(limit: Int, sort: String, start: Int, where: Strapi_JSON): Strapi_UsersPermissionsRoleConnection
+    user(id: ID!, publicationState: Strapi_PublicationState): Strapi_UsersPermissionsUser
+    users(limit: Int, publicationState: Strapi_PublicationState, sort: String, start: Int, where: Strapi_JSON): [Strapi_UsersPermissionsUser]
+    usersConnection(limit: Int, sort: String, start: Int, where: Strapi_JSON): Strapi_UsersPermissionsUserConnection
+}
+
+type Strapi_AdminUser {
+    firstname: String!
     id: ID!
-    internal: Internal!
-    locale: String
-    localizations: [StrapiGlobalLocalizations]
-    metaTitleSuffix: String
-    metadata: StrapiGlobalMetadata
-    navbar: StrapiGlobalNavbar
-    notificationBanner: StrapiGlobalNotificationBanner
-    parent: Node
-    strapiId: Int
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
+    lastname: String!
+    username: String
 }
 
-type StrapiGlobalConnection {
-    distinct(field: StrapiGlobalFieldsEnum!): [String!]!
-    edges: [StrapiGlobalEdge!]!
-    group(field: StrapiGlobalFieldsEnum!, limit: Int, skip: Int): [StrapiGlobalGroupConnection!]!
-    max(field: StrapiGlobalFieldsEnum!): Float
-    min(field: StrapiGlobalFieldsEnum!): Float
-    nodes: [StrapiGlobal!]!
-    pageInfo: PageInfo!
-    sum(field: StrapiGlobalFieldsEnum!): Float
-    totalCount: Int!
-}
-
-type StrapiGlobalEdge {
-    next: StrapiGlobal
-    node: StrapiGlobal!
-    previous: StrapiGlobal
-}
-
-type StrapiGlobalFavicon {
-    alternativeText: String
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    ext: String
-    formats: StrapiGlobalFaviconFormats
-    hash: String
-    height: Int
-    id: Int
-    localFile: File
-    mime: String
+type Strapi_ComponentElementsFeature {
+    id: ID!
     name: String
-    provider: String
-    size: Float
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    url: String
-    width: Int
 }
 
-type StrapiGlobalFaviconFormats {
-    small: StrapiGlobalFaviconFormatsSmall
-    thumbnail: StrapiGlobalFaviconFormatsThumbnail
+type Strapi_ComponentElementsFeatureColumn {
+    description: String
+    icon: Strapi_UploadFile
+    id: ID!
+    title: String!
 }
 
-type StrapiGlobalFaviconFormatsSmall {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
+type Strapi_ComponentElementsFeatureRow {
+    description: String
+    id: ID!
+    link: Strapi_ComponentLinksLink
+    media: Strapi_UploadFile
+    title: String!
 }
 
-type StrapiGlobalFaviconFormatsThumbnail {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalFooter {
-    columns: [StrapiGlobalFooterColumns]
-    id: Int
-    logo: StrapiGlobalFooterLogo
-    smallText: String
-}
-
-type StrapiGlobalFooterColumns {
-    id: Int
-    links: [StrapiGlobalFooterColumnsLinks]
+type Strapi_ComponentElementsFooterSection {
+    id: ID!
+    links: [Strapi_ComponentLinksLink]
     title: String
 }
 
-type StrapiGlobalFooterColumnsLinks {
-    id: Int
+type Strapi_ComponentElementsLogos {
+    id: ID!
+    logo: Strapi_UploadFile
+    title: String
+}
+
+type Strapi_ComponentElementsNotificationBanner {
+    id: ID!
+    text: String
+    type: Strapi_ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE!
+}
+
+type Strapi_ComponentElementsPlan {
+    description: String
+    features: [Strapi_ComponentElementsFeature]
+    id: ID!
+    isRecommended: Boolean
+    name: String
+    price: Float
+    pricePeriod: String
+}
+
+type Strapi_ComponentElementsTestimonial {
+    authorName: String
+    authorTitle: String
+    id: ID!
+    link: String
+    logo: Strapi_UploadFile
+    picture: Strapi_UploadFile
+    text: String
+}
+
+type Strapi_ComponentLayoutFooter {
+    columns: [Strapi_ComponentElementsFooterSection]
+    id: ID!
+    logo: Strapi_UploadFile
+    smallText: String
+}
+
+type Strapi_ComponentLayoutNavbar {
+    button: Strapi_ComponentLinksButtonLink
+    id: ID!
+    links: [Strapi_ComponentLinksLink]
+    logo: Strapi_UploadFile
+}
+
+type Strapi_ComponentLinksButton {
+    id: ID!
+    text: String
+    type: Strapi_ENUM_COMPONENTLINKSBUTTON_TYPE
+}
+
+type Strapi_ComponentLinksButtonLink {
+    id: ID!
     newTab: Boolean
     text: String
+    type: Strapi_ENUM_COMPONENTLINKSBUTTONLINK_TYPE
     url: String
 }
 
-type StrapiGlobalFooterLogo {
-    alternativeText: String
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    ext: String
-    formats: StrapiGlobalFooterLogoFormats
-    hash: String
-    height: Int
-    id: Int
-    localFile: File
-    mime: String
-    name: String
-    provider: String
-    size: Float
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    url: String
-    width: Int
+type Strapi_ComponentLinksLink {
+    id: ID!
+    newTab: Boolean
+    text: String!
+    url: String!
 }
 
-type StrapiGlobalFooterLogoFormats {
-    medium: StrapiGlobalFooterLogoFormatsMedium
-    small: StrapiGlobalFooterLogoFormatsSmall
-    thumbnail: StrapiGlobalFooterLogoFormatsThumbnail
-}
-
-type StrapiGlobalFooterLogoFormatsMedium {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalFooterLogoFormatsSmall {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalFooterLogoFormatsThumbnail {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalGroupConnection {
-    distinct(field: StrapiGlobalFieldsEnum!): [String!]!
-    edges: [StrapiGlobalEdge!]!
-    field: String!
-    fieldValue: String
-    group(field: StrapiGlobalFieldsEnum!, limit: Int, skip: Int): [StrapiGlobalGroupConnection!]!
-    max(field: StrapiGlobalFieldsEnum!): Float
-    min(field: StrapiGlobalFieldsEnum!): Float
-    nodes: [StrapiGlobal!]!
-    pageInfo: PageInfo!
-    sum(field: StrapiGlobalFieldsEnum!): Float
-    totalCount: Int!
-}
-
-type StrapiGlobalLocalizations {
-    id: Int
-    locale: String
-}
-
-type StrapiGlobalMetadata {
-    id: Int
-    metaDescription: String
-    metaTitle: String
-    shareImage: StrapiGlobalMetadataShareImage
-    twitterCardType: String
+type Strapi_ComponentMetaMetadata {
+    id: ID!
+    metaDescription: String!
+    metaTitle: String!
+    shareImage: Strapi_UploadFile
+    twitterCardType: Strapi_ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE
     twitterUsername: String
 }
 
-type StrapiGlobalMetadataShareImage {
-    alternativeText: String
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    ext: String
-    formats: StrapiGlobalMetadataShareImageFormats
-    hash: String
-    height: Int
-    id: Int
-    localFile: File
-    mime: String
-    name: String
-    provider: String
-    size: Float
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    url: String
-    width: Int
-}
-
-type StrapiGlobalMetadataShareImageFormats {
-    large: StrapiGlobalMetadataShareImageFormatsLarge
-    medium: StrapiGlobalMetadataShareImageFormatsMedium
-    small: StrapiGlobalMetadataShareImageFormatsSmall
-    thumbnail: StrapiGlobalMetadataShareImageFormatsThumbnail
-}
-
-type StrapiGlobalMetadataShareImageFormatsLarge {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalMetadataShareImageFormatsMedium {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalMetadataShareImageFormatsSmall {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalMetadataShareImageFormatsThumbnail {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalNavbar {
-    button: StrapiGlobalNavbarButton
-    id: Int
-    links: [StrapiGlobalNavbarLinks]
-    logo: StrapiGlobalNavbarLogo
-}
-
-type StrapiGlobalNavbarButton {
-    id: Int
-    newTab: Boolean
-    text: String
-    type: String
-    url: String
-}
-
-type StrapiGlobalNavbarLinks {
-    id: Int
-    newTab: Boolean
-    text: String
-    url: String
-}
-
-type StrapiGlobalNavbarLogo {
-    alternativeText: String
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    ext: String
-    formats: StrapiGlobalNavbarLogoFormats
-    hash: String
-    height: Int
-    id: Int
-    localFile: File
-    mime: String
-    name: String
-    provider: String
-    size: Float
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    url: String
-    width: Int
-}
-
-type StrapiGlobalNavbarLogoFormats {
-    medium: StrapiGlobalNavbarLogoFormatsMedium
-    small: StrapiGlobalNavbarLogoFormatsSmall
-    thumbnail: StrapiGlobalNavbarLogoFormatsThumbnail
-}
-
-type StrapiGlobalNavbarLogoFormatsMedium {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalNavbarLogoFormatsSmall {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalNavbarLogoFormatsThumbnail {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
-}
-
-type StrapiGlobalNotificationBanner {
-    id: Int
-    text: String
-    type: String
-}
-
-type StrapiPages implements Node {
-    children: [Node!]!
-    contentSections: JSON
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
+type Strapi_ComponentSectionsBottomActions {
+    buttons: [Strapi_ComponentLinksButtonLink]
     id: ID!
-    internal: Internal!
+    title: String
+}
+
+type Strapi_ComponentSectionsFeatureColumnsGroup {
+    features: [Strapi_ComponentElementsFeatureColumn]
+    id: ID!
+}
+
+type Strapi_ComponentSectionsFeatureRowsGroup {
+    features: [Strapi_ComponentElementsFeatureRow]
+    id: ID!
+}
+
+type Strapi_ComponentSectionsHero {
+    buttons: [Strapi_ComponentLinksButtonLink]
+    description: String
+    id: ID!
+    label: String
+    picture: Strapi_UploadFile
+    smallTextWithLink: String
+    title: String
+}
+
+type Strapi_ComponentSectionsLargeVideo {
+    description: String
+    id: ID!
+    poster: Strapi_UploadFile
+    title: String
+    video: Strapi_UploadFile
+}
+
+type Strapi_ComponentSectionsLeadForm {
+    emailPlaceholder: String
+    id: ID!
+    location: String
+    submitButton: Strapi_ComponentLinksButton
+    title: String
+}
+
+type Strapi_ComponentSectionsPricing {
+    id: ID!
+    plans: [Strapi_ComponentElementsPlan]
+    title: String
+}
+
+type Strapi_ComponentSectionsRichText {
+    content: String
+    id: ID!
+}
+
+type Strapi_ComponentSectionsTestimonialsGroup {
+    description: String
+    id: ID!
+    link: Strapi_ComponentLinksLink
+    logos: [Strapi_ComponentElementsLogos]
+    testimonials: [Strapi_ComponentElementsTestimonial]
+    title: String
+}
+
+type Strapi_Global {
+    created_at: Strapi_DateTime!
+    favicon: Strapi_UploadFile
+    footer: Strapi_ComponentLayoutFooter
+    id: ID!
     locale: String
-    localizations: [StrapiPagesLocalizations]
-    metadata: StrapiPagesMetadata
-    parent: Node
+    localizations(limit: Int, sort: String, start: Int, where: Strapi_JSON): [Strapi_Global]
+    metaTitleSuffix: String!
+    metadata: Strapi_ComponentMetaMetadata
+    navbar: Strapi_ComponentLayoutNavbar
+    notificationBanner: Strapi_ComponentElementsNotificationBanner
+    updated_at: Strapi_DateTime!
+}
+
+type Strapi_I18NLocale {
+    code: String
+    created_at: Strapi_DateTime!
+    id: ID!
+    name: String
+    updated_at: Strapi_DateTime!
+}
+
+type Strapi_LeadFormSubmissions {
+    created_at: Strapi_DateTime!
+    email: String
+    id: ID!
+    location: String
+    status: Strapi_ENUM_LEADFORMSUBMISSIONS_STATUS
+    updated_at: Strapi_DateTime!
+}
+
+type Strapi_LeadFormSubmissionsAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type Strapi_LeadFormSubmissionsConnection {
+    aggregate: Strapi_LeadFormSubmissionsAggregator
+    groupBy: Strapi_LeadFormSubmissionsGroupBy
+    values: [Strapi_LeadFormSubmissions]
+}
+
+type Strapi_LeadFormSubmissionsConnectionCreated_at {
+    connection: Strapi_LeadFormSubmissionsConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_LeadFormSubmissionsConnectionEmail {
+    connection: Strapi_LeadFormSubmissionsConnection
+    key: String
+}
+
+type Strapi_LeadFormSubmissionsConnectionId {
+    connection: Strapi_LeadFormSubmissionsConnection
+    key: ID
+}
+
+type Strapi_LeadFormSubmissionsConnectionLocation {
+    connection: Strapi_LeadFormSubmissionsConnection
+    key: String
+}
+
+type Strapi_LeadFormSubmissionsConnectionStatus {
+    connection: Strapi_LeadFormSubmissionsConnection
+    key: String
+}
+
+type Strapi_LeadFormSubmissionsConnectionUpdated_at {
+    connection: Strapi_LeadFormSubmissionsConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_LeadFormSubmissionsGroupBy {
+    created_at: [Strapi_LeadFormSubmissionsConnectionCreated_at]
+    email: [Strapi_LeadFormSubmissionsConnectionEmail]
+    id: [Strapi_LeadFormSubmissionsConnectionId]
+    location: [Strapi_LeadFormSubmissionsConnectionLocation]
+    status: [Strapi_LeadFormSubmissionsConnectionStatus]
+    updated_at: [Strapi_LeadFormSubmissionsConnectionUpdated_at]
+}
+
+type Strapi_Page {
+    contentSections: [Strapi_PageContentSectionsDynamicZone]
+    created_at: Strapi_DateTime!
+    id: ID!
+    locale: String
+    localizations(limit: Int, sort: String, start: Int, where: Strapi_JSON): [Strapi_Page]
+    metadata: Strapi_ComponentMetaMetadata
     shortName: String
     slug: String
-    status: String
-    strapiId: Int
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
+    status: Strapi_ENUM_PAGE_STATUS!
+    updated_at: Strapi_DateTime!
 }
 
-type StrapiPagesConnection {
-    distinct(field: StrapiPagesFieldsEnum!): [String!]!
-    edges: [StrapiPagesEdge!]!
-    group(field: StrapiPagesFieldsEnum!, limit: Int, skip: Int): [StrapiPagesGroupConnection!]!
-    max(field: StrapiPagesFieldsEnum!): Float
-    min(field: StrapiPagesFieldsEnum!): Float
-    nodes: [StrapiPages!]!
-    pageInfo: PageInfo!
-    sum(field: StrapiPagesFieldsEnum!): Float
-    totalCount: Int!
+type Strapi_PageAggregator {
+    count: Int
+    totalCount: Int
 }
 
-type StrapiPagesEdge {
-    next: StrapiPages
-    node: StrapiPages!
-    previous: StrapiPages
+type Strapi_PageConnection {
+    aggregate: Strapi_PageAggregator
+    groupBy: Strapi_PageGroupBy
+    values: [Strapi_Page]
 }
 
-type StrapiPagesGroupConnection {
-    distinct(field: StrapiPagesFieldsEnum!): [String!]!
-    edges: [StrapiPagesEdge!]!
-    field: String!
-    fieldValue: String
-    group(field: StrapiPagesFieldsEnum!, limit: Int, skip: Int): [StrapiPagesGroupConnection!]!
-    max(field: StrapiPagesFieldsEnum!): Float
-    min(field: StrapiPagesFieldsEnum!): Float
-    nodes: [StrapiPages!]!
-    pageInfo: PageInfo!
-    sum(field: StrapiPagesFieldsEnum!): Float
-    totalCount: Int!
+type Strapi_PageConnectionCreated_at {
+    connection: Strapi_PageConnection
+    key: Strapi_DateTime
 }
 
-type StrapiPagesLocalizations {
-    id: Int
-    locale: String
+type Strapi_PageConnectionId {
+    connection: Strapi_PageConnection
+    key: ID
 }
 
-type StrapiPagesMetadata {
-    id: Int
-    metaDescription: String
-    metaTitle: String
-    shareImage: StrapiPagesMetadataShareImage
-    twitterCardType: String
+type Strapi_PageConnectionLocale {
+    connection: Strapi_PageConnection
+    key: String
 }
 
-type StrapiPagesMetadataShareImage {
+type Strapi_PageConnectionMetadata {
+    connection: Strapi_PageConnection
+    key: ID
+}
+
+type Strapi_PageConnectionShortName {
+    connection: Strapi_PageConnection
+    key: String
+}
+
+type Strapi_PageConnectionSlug {
+    connection: Strapi_PageConnection
+    key: String
+}
+
+type Strapi_PageConnectionStatus {
+    connection: Strapi_PageConnection
+    key: String
+}
+
+type Strapi_PageConnectionUpdated_at {
+    connection: Strapi_PageConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_PageGroupBy {
+    created_at: [Strapi_PageConnectionCreated_at]
+    id: [Strapi_PageConnectionId]
+    locale: [Strapi_PageConnectionLocale]
+    metadata: [Strapi_PageConnectionMetadata]
+    shortName: [Strapi_PageConnectionShortName]
+    slug: [Strapi_PageConnectionSlug]
+    status: [Strapi_PageConnectionStatus]
+    updated_at: [Strapi_PageConnectionUpdated_at]
+}
+
+type Strapi_UploadFile {
     alternativeText: String
-    created_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
+    caption: String
+    created_at: Strapi_DateTime!
     ext: String
-    formats: StrapiPagesMetadataShareImageFormats
-    hash: String
+    formats: Strapi_JSON
+    hash: String!
     height: Int
-    id: Int
-    localFile: File
-    mime: String
-    name: String
+    id: ID!
+    mime: String!
+    name: String!
+    previewUrl: String
+    provider: String!
+    provider_metadata: Strapi_JSON
+    related(limit: Int, sort: String, start: Int, where: Strapi_JSON): [Strapi_Morph]
+    size: Float!
+    updated_at: Strapi_DateTime!
+    url: String!
+    width: Int
+}
+
+type Strapi_UploadFileAggregator {
+    avg: Strapi_UploadFileAggregatorAvg
+    count: Int
+    max: Strapi_UploadFileAggregatorMax
+    min: Strapi_UploadFileAggregatorMin
+    sum: Strapi_UploadFileAggregatorSum
+    totalCount: Int
+}
+
+type Strapi_UploadFileAggregatorAvg {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type Strapi_UploadFileAggregatorMax {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type Strapi_UploadFileAggregatorMin {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type Strapi_UploadFileAggregatorSum {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type Strapi_UploadFileConnection {
+    aggregate: Strapi_UploadFileAggregator
+    groupBy: Strapi_UploadFileGroupBy
+    values: [Strapi_UploadFile]
+}
+
+type Strapi_UploadFileConnectionAlternativeText {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionCaption {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionCreated_at {
+    connection: Strapi_UploadFileConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_UploadFileConnectionExt {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionFormats {
+    connection: Strapi_UploadFileConnection
+    key: Strapi_JSON
+}
+
+type Strapi_UploadFileConnectionHash {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionHeight {
+    connection: Strapi_UploadFileConnection
+    key: Int
+}
+
+type Strapi_UploadFileConnectionId {
+    connection: Strapi_UploadFileConnection
+    key: ID
+}
+
+type Strapi_UploadFileConnectionMime {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionName {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionPreviewUrl {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionProvider {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionProvider_metadata {
+    connection: Strapi_UploadFileConnection
+    key: Strapi_JSON
+}
+
+type Strapi_UploadFileConnectionSize {
+    connection: Strapi_UploadFileConnection
+    key: Float
+}
+
+type Strapi_UploadFileConnectionUpdated_at {
+    connection: Strapi_UploadFileConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_UploadFileConnectionUrl {
+    connection: Strapi_UploadFileConnection
+    key: String
+}
+
+type Strapi_UploadFileConnectionWidth {
+    connection: Strapi_UploadFileConnection
+    key: Int
+}
+
+type Strapi_UploadFileGroupBy {
+    alternativeText: [Strapi_UploadFileConnectionAlternativeText]
+    caption: [Strapi_UploadFileConnectionCaption]
+    created_at: [Strapi_UploadFileConnectionCreated_at]
+    ext: [Strapi_UploadFileConnectionExt]
+    formats: [Strapi_UploadFileConnectionFormats]
+    hash: [Strapi_UploadFileConnectionHash]
+    height: [Strapi_UploadFileConnectionHeight]
+    id: [Strapi_UploadFileConnectionId]
+    mime: [Strapi_UploadFileConnectionMime]
+    name: [Strapi_UploadFileConnectionName]
+    previewUrl: [Strapi_UploadFileConnectionPreviewUrl]
+    provider: [Strapi_UploadFileConnectionProvider]
+    provider_metadata: [Strapi_UploadFileConnectionProvider_metadata]
+    size: [Strapi_UploadFileConnectionSize]
+    updated_at: [Strapi_UploadFileConnectionUpdated_at]
+    url: [Strapi_UploadFileConnectionUrl]
+    width: [Strapi_UploadFileConnectionWidth]
+}
+
+type Strapi_UserPermissionsPasswordPayload {
+    ok: Boolean!
+}
+
+type Strapi_UsersPermissionsLoginPayload {
+    jwt: String
+    user: Strapi_UsersPermissionsMe!
+}
+
+type Strapi_UsersPermissionsMe {
+    blocked: Boolean
+    confirmed: Boolean
+    email: String!
+    id: ID!
+    role: Strapi_UsersPermissionsMeRole
+    username: String!
+}
+
+type Strapi_UsersPermissionsMeRole {
+    description: String
+    id: ID!
+    name: String!
+    type: String
+}
+
+type Strapi_UsersPermissionsPermission {
+    action: String!
+    controller: String!
+    enabled: Boolean!
+    id: ID!
+    policy: String
+    role: Strapi_UsersPermissionsRole
+    type: String!
+}
+
+type Strapi_UsersPermissionsRole {
+    description: String
+    id: ID!
+    name: String!
+    permissions(limit: Int, sort: String, start: Int, where: Strapi_JSON): [Strapi_UsersPermissionsPermission]
+    type: String
+    users(limit: Int, sort: String, start: Int, where: Strapi_JSON): [Strapi_UsersPermissionsUser]
+}
+
+type Strapi_UsersPermissionsRoleAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type Strapi_UsersPermissionsRoleConnection {
+    aggregate: Strapi_UsersPermissionsRoleAggregator
+    groupBy: Strapi_UsersPermissionsRoleGroupBy
+    values: [Strapi_UsersPermissionsRole]
+}
+
+type Strapi_UsersPermissionsRoleConnectionDescription {
+    connection: Strapi_UsersPermissionsRoleConnection
+    key: String
+}
+
+type Strapi_UsersPermissionsRoleConnectionId {
+    connection: Strapi_UsersPermissionsRoleConnection
+    key: ID
+}
+
+type Strapi_UsersPermissionsRoleConnectionName {
+    connection: Strapi_UsersPermissionsRoleConnection
+    key: String
+}
+
+type Strapi_UsersPermissionsRoleConnectionType {
+    connection: Strapi_UsersPermissionsRoleConnection
+    key: String
+}
+
+type Strapi_UsersPermissionsRoleGroupBy {
+    description: [Strapi_UsersPermissionsRoleConnectionDescription]
+    id: [Strapi_UsersPermissionsRoleConnectionId]
+    name: [Strapi_UsersPermissionsRoleConnectionName]
+    type: [Strapi_UsersPermissionsRoleConnectionType]
+}
+
+type Strapi_UsersPermissionsUser {
+    blocked: Boolean
+    confirmed: Boolean
+    created_at: Strapi_DateTime!
+    email: String!
+    id: ID!
     provider: String
-    size: Float
-    updated_at(
-        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
-        difference: String,
-        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
-        formatString: String,
-        "Returns a string generated with Moment.js' `fromNow` function"
-        fromNow: Boolean,
-        "Configures the locale Moment.js will use to format the date."
-        locale: String
-    ): Date
-    url: String
-    width: Int
+    role: Strapi_UsersPermissionsRole
+    updated_at: Strapi_DateTime!
+    username: String!
 }
 
-type StrapiPagesMetadataShareImageFormats {
-    large: StrapiPagesMetadataShareImageFormatsLarge
-    medium: StrapiPagesMetadataShareImageFormatsMedium
-    small: StrapiPagesMetadataShareImageFormatsSmall
-    thumbnail: StrapiPagesMetadataShareImageFormatsThumbnail
+type Strapi_UsersPermissionsUserAggregator {
+    count: Int
+    totalCount: Int
 }
 
-type StrapiPagesMetadataShareImageFormatsLarge {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
+type Strapi_UsersPermissionsUserConnection {
+    aggregate: Strapi_UsersPermissionsUserAggregator
+    groupBy: Strapi_UsersPermissionsUserGroupBy
+    values: [Strapi_UsersPermissionsUser]
 }
 
-type StrapiPagesMetadataShareImageFormatsMedium {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
+type Strapi_UsersPermissionsUserConnectionBlocked {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: Boolean
 }
 
-type StrapiPagesMetadataShareImageFormatsSmall {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
+type Strapi_UsersPermissionsUserConnectionConfirmed {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: Boolean
 }
 
-type StrapiPagesMetadataShareImageFormatsThumbnail {
-    ext: String
-    hash: String
-    height: Int
-    mime: String
-    name: String
-    size: Float
-    url: String
-    width: Int
+type Strapi_UsersPermissionsUserConnectionCreated_at {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_UsersPermissionsUserConnectionEmail {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: String
+}
+
+type Strapi_UsersPermissionsUserConnectionId {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: ID
+}
+
+type Strapi_UsersPermissionsUserConnectionProvider {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: String
+}
+
+type Strapi_UsersPermissionsUserConnectionRole {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: ID
+}
+
+type Strapi_UsersPermissionsUserConnectionUpdated_at {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: Strapi_DateTime
+}
+
+type Strapi_UsersPermissionsUserConnectionUsername {
+    connection: Strapi_UsersPermissionsUserConnection
+    key: String
+}
+
+type Strapi_UsersPermissionsUserGroupBy {
+    blocked: [Strapi_UsersPermissionsUserConnectionBlocked]
+    confirmed: [Strapi_UsersPermissionsUserConnectionConfirmed]
+    created_at: [Strapi_UsersPermissionsUserConnectionCreated_at]
+    email: [Strapi_UsersPermissionsUserConnectionEmail]
+    id: [Strapi_UsersPermissionsUserConnectionId]
+    provider: [Strapi_UsersPermissionsUserConnectionProvider]
+    role: [Strapi_UsersPermissionsUserConnectionRole]
+    updated_at: [Strapi_UsersPermissionsUserConnectionUpdated_at]
+    username: [Strapi_UsersPermissionsUserConnectionUsername]
+}
+
+type Strapi_createLeadFormSubmissionPayload {
+    leadFormSubmission: Strapi_LeadFormSubmissions
+}
+
+type Strapi_createPagePayload {
+    page: Strapi_Page
+}
+
+type Strapi_createRolePayload {
+    role: Strapi_UsersPermissionsRole
+}
+
+type Strapi_createUserPayload {
+    user: Strapi_UsersPermissionsUser
+}
+
+type Strapi_deleteFilePayload {
+    file: Strapi_UploadFile
+}
+
+type Strapi_deleteGlobalPayload {
+    global: Strapi_Global
+}
+
+type Strapi_deleteLeadFormSubmissionPayload {
+    leadFormSubmission: Strapi_LeadFormSubmissions
+}
+
+type Strapi_deletePagePayload {
+    page: Strapi_Page
+}
+
+type Strapi_deleteRolePayload {
+    role: Strapi_UsersPermissionsRole
+}
+
+type Strapi_deleteUserPayload {
+    user: Strapi_UsersPermissionsUser
+}
+
+type Strapi_updateGlobalPayload {
+    global: Strapi_Global
+}
+
+type Strapi_updateLeadFormSubmissionPayload {
+    leadFormSubmission: Strapi_LeadFormSubmissions
+}
+
+type Strapi_updatePagePayload {
+    page: Strapi_Page
+}
+
+type Strapi_updateRolePayload {
+    role: Strapi_UsersPermissionsRole
+}
+
+type Strapi_updateUserPayload {
+    user: Strapi_UsersPermissionsUser
 }
 
 enum DirectoryFieldsEnum {
@@ -1818,7 +1997,97 @@ enum FileFieldsEnum {
     size
     sourceInstanceName
     uid
-    url
+}
+
+enum GraphQLSourceFieldsEnum {
+    children
+    children___children
+    children___children___children
+    children___children___children___children
+    children___children___children___id
+    children___children___id
+    children___children___internal___content
+    children___children___internal___contentDigest
+    children___children___internal___description
+    children___children___internal___fieldOwners
+    children___children___internal___ignoreType
+    children___children___internal___mediaType
+    children___children___internal___owner
+    children___children___internal___type
+    children___children___parent___children
+    children___children___parent___id
+    children___id
+    children___internal___content
+    children___internal___contentDigest
+    children___internal___description
+    children___internal___fieldOwners
+    children___internal___ignoreType
+    children___internal___mediaType
+    children___internal___owner
+    children___internal___type
+    children___parent___children
+    children___parent___children___children
+    children___parent___children___id
+    children___parent___id
+    children___parent___internal___content
+    children___parent___internal___contentDigest
+    children___parent___internal___description
+    children___parent___internal___fieldOwners
+    children___parent___internal___ignoreType
+    children___parent___internal___mediaType
+    children___parent___internal___owner
+    children___parent___internal___type
+    children___parent___parent___children
+    children___parent___parent___id
+    fieldName
+    id
+    internal___content
+    internal___contentDigest
+    internal___description
+    internal___fieldOwners
+    internal___ignoreType
+    internal___mediaType
+    internal___owner
+    internal___type
+    parent___children
+    parent___children___children
+    parent___children___children___children
+    parent___children___children___id
+    parent___children___id
+    parent___children___internal___content
+    parent___children___internal___contentDigest
+    parent___children___internal___description
+    parent___children___internal___fieldOwners
+    parent___children___internal___ignoreType
+    parent___children___internal___mediaType
+    parent___children___internal___owner
+    parent___children___internal___type
+    parent___children___parent___children
+    parent___children___parent___id
+    parent___id
+    parent___internal___content
+    parent___internal___contentDigest
+    parent___internal___description
+    parent___internal___fieldOwners
+    parent___internal___ignoreType
+    parent___internal___mediaType
+    parent___internal___owner
+    parent___internal___type
+    parent___parent___children
+    parent___parent___children___children
+    parent___parent___children___id
+    parent___parent___id
+    parent___parent___internal___content
+    parent___parent___internal___contentDigest
+    parent___parent___internal___description
+    parent___parent___internal___fieldOwners
+    parent___parent___internal___ignoreType
+    parent___parent___internal___mediaType
+    parent___parent___internal___owner
+    parent___parent___internal___type
+    parent___parent___parent___children
+    parent___parent___parent___id
+    typeName
 }
 
 enum ImageCropFocus {
@@ -2432,16 +2701,15 @@ enum SitePageFieldsEnum {
     pluginCreator___parent___parent___id
     pluginCreator___pluginFilepath
     pluginCreator___pluginOptions___allExtensions
-    pluginCreator___pluginOptions___apiURL
     pluginCreator___pluginOptions___background_color
     pluginCreator___pluginOptions___base64Width
     pluginCreator___pluginOptions___cacheDigest
     pluginCreator___pluginOptions___cache_busting_mode
-    pluginCreator___pluginOptions___collectionTypes
     pluginCreator___pluginOptions___crossOrigin
     pluginCreator___pluginOptions___defaultQuality
     pluginCreator___pluginOptions___display
     pluginCreator___pluginOptions___failOnError
+    pluginCreator___pluginOptions___fieldName
     pluginCreator___pluginOptions___icon
     pluginCreator___pluginOptions___include_favicon
     pluginCreator___pluginOptions___isTSX
@@ -2451,13 +2719,13 @@ enum SitePageFieldsEnum {
     pluginCreator___pluginOptions___outputPath
     pluginCreator___pluginOptions___path
     pluginCreator___pluginOptions___pathCheck
-    pluginCreator___pluginOptions___queryLimit
     pluginCreator___pluginOptions___short_name
-    pluginCreator___pluginOptions___singleTypes
     pluginCreator___pluginOptions___start_url
     pluginCreator___pluginOptions___stripMetadata
     pluginCreator___pluginOptions___theme_color
     pluginCreator___pluginOptions___theme_color_in_head
+    pluginCreator___pluginOptions___typeName
+    pluginCreator___pluginOptions___url
     pluginCreator___resolve
     pluginCreator___ssrAPIs
     pluginCreator___version
@@ -2570,16 +2838,15 @@ enum SitePluginFieldsEnum {
     parent___parent___parent___id
     pluginFilepath
     pluginOptions___allExtensions
-    pluginOptions___apiURL
     pluginOptions___background_color
     pluginOptions___base64Width
     pluginOptions___cacheDigest
     pluginOptions___cache_busting_mode
-    pluginOptions___collectionTypes
     pluginOptions___crossOrigin
     pluginOptions___defaultQuality
     pluginOptions___display
     pluginOptions___failOnError
+    pluginOptions___fieldName
     pluginOptions___icon
     pluginOptions___include_favicon
     pluginOptions___isTSX
@@ -2589,13 +2856,13 @@ enum SitePluginFieldsEnum {
     pluginOptions___outputPath
     pluginOptions___path
     pluginOptions___pathCheck
-    pluginOptions___queryLimit
     pluginOptions___short_name
-    pluginOptions___singleTypes
     pluginOptions___start_url
     pluginOptions___stripMetadata
     pluginOptions___theme_color
     pluginOptions___theme_color_in_head
+    pluginOptions___typeName
+    pluginOptions___url
     resolve
     ssrAPIs
     version
@@ -2606,523 +2873,43 @@ enum SortOrderEnum {
     DESC
 }
 
-enum StrapiGlobalFieldsEnum {
-    children
-    children___children
-    children___children___children
-    children___children___children___children
-    children___children___children___id
-    children___children___id
-    children___children___internal___content
-    children___children___internal___contentDigest
-    children___children___internal___description
-    children___children___internal___fieldOwners
-    children___children___internal___ignoreType
-    children___children___internal___mediaType
-    children___children___internal___owner
-    children___children___internal___type
-    children___children___parent___children
-    children___children___parent___id
-    children___id
-    children___internal___content
-    children___internal___contentDigest
-    children___internal___description
-    children___internal___fieldOwners
-    children___internal___ignoreType
-    children___internal___mediaType
-    children___internal___owner
-    children___internal___type
-    children___parent___children
-    children___parent___children___children
-    children___parent___children___id
-    children___parent___id
-    children___parent___internal___content
-    children___parent___internal___contentDigest
-    children___parent___internal___description
-    children___parent___internal___fieldOwners
-    children___parent___internal___ignoreType
-    children___parent___internal___mediaType
-    children___parent___internal___owner
-    children___parent___internal___type
-    children___parent___parent___children
-    children___parent___parent___id
-    created_at
-    favicon___alternativeText
-    favicon___created_at
-    favicon___ext
-    favicon___formats___small___ext
-    favicon___formats___small___hash
-    favicon___formats___small___height
-    favicon___formats___small___mime
-    favicon___formats___small___name
-    favicon___formats___small___size
-    favicon___formats___small___url
-    favicon___formats___small___width
-    favicon___formats___thumbnail___ext
-    favicon___formats___thumbnail___hash
-    favicon___formats___thumbnail___height
-    favicon___formats___thumbnail___mime
-    favicon___formats___thumbnail___name
-    favicon___formats___thumbnail___size
-    favicon___formats___thumbnail___url
-    favicon___formats___thumbnail___width
-    favicon___hash
-    favicon___height
-    favicon___id
-    favicon___localFile___absolutePath
-    favicon___localFile___accessTime
-    favicon___localFile___atime
-    favicon___localFile___atimeMs
-    favicon___localFile___base
-    favicon___localFile___birthTime
-    favicon___localFile___birthtime
-    favicon___localFile___birthtimeMs
-    favicon___localFile___blksize
-    favicon___localFile___blocks
-    favicon___localFile___changeTime
-    favicon___localFile___childImageSharp___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    favicon___localFile___childImageSharp___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    favicon___localFile___childImageSharp___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    favicon___localFile___children
-    favicon___localFile___childrenImageSharp
-    favicon___localFile___childrenImageSharp___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    favicon___localFile___childrenImageSharp___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    favicon___localFile___childrenImageSharp___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    favicon___localFile___children___children
-    favicon___localFile___children___id
-    favicon___localFile___ctime
-    favicon___localFile___ctimeMs
-    favicon___localFile___dev
-    favicon___localFile___dir
-    favicon___localFile___ext
-    favicon___localFile___extension
-    favicon___localFile___gid
-    favicon___localFile___id
-    favicon___localFile___ino
-    favicon___localFile___internal___content
-    favicon___localFile___internal___contentDigest
-    favicon___localFile___internal___description
-    favicon___localFile___internal___fieldOwners
-    favicon___localFile___internal___ignoreType
-    favicon___localFile___internal___mediaType
-    favicon___localFile___internal___owner
-    favicon___localFile___internal___type
-    favicon___localFile___mode
-    favicon___localFile___modifiedTime
-    favicon___localFile___mtime
-    favicon___localFile___mtimeMs
-    favicon___localFile___name
-    favicon___localFile___nlink
-    favicon___localFile___parent___children
-    favicon___localFile___parent___id
-    favicon___localFile___prettySize
-    favicon___localFile___publicURL
-    favicon___localFile___rdev
-    favicon___localFile___relativeDirectory
-    favicon___localFile___relativePath
-    favicon___localFile___root
-    favicon___localFile___size
-    favicon___localFile___sourceInstanceName
-    favicon___localFile___uid
-    favicon___localFile___url
-    favicon___mime
-    favicon___name
-    favicon___provider
-    favicon___size
-    favicon___updated_at
-    favicon___url
-    favicon___width
-    footer___columns
-    footer___columns___id
-    footer___columns___links
-    footer___columns___links___id
-    footer___columns___links___newTab
-    footer___columns___links___text
-    footer___columns___links___url
-    footer___columns___title
-    footer___id
-    footer___logo___alternativeText
-    footer___logo___created_at
-    footer___logo___ext
-    footer___logo___hash
-    footer___logo___height
-    footer___logo___id
-    footer___logo___localFile___absolutePath
-    footer___logo___localFile___accessTime
-    footer___logo___localFile___atime
-    footer___logo___localFile___atimeMs
-    footer___logo___localFile___base
-    footer___logo___localFile___birthTime
-    footer___logo___localFile___birthtime
-    footer___logo___localFile___birthtimeMs
-    footer___logo___localFile___blksize
-    footer___logo___localFile___blocks
-    footer___logo___localFile___changeTime
-    footer___logo___localFile___children
-    footer___logo___localFile___childrenImageSharp
-    footer___logo___localFile___ctime
-    footer___logo___localFile___ctimeMs
-    footer___logo___localFile___dev
-    footer___logo___localFile___dir
-    footer___logo___localFile___ext
-    footer___logo___localFile___extension
-    footer___logo___localFile___gid
-    footer___logo___localFile___id
-    footer___logo___localFile___ino
-    footer___logo___localFile___mode
-    footer___logo___localFile___modifiedTime
-    footer___logo___localFile___mtime
-    footer___logo___localFile___mtimeMs
-    footer___logo___localFile___name
-    footer___logo___localFile___nlink
-    footer___logo___localFile___prettySize
-    footer___logo___localFile___publicURL
-    footer___logo___localFile___rdev
-    footer___logo___localFile___relativeDirectory
-    footer___logo___localFile___relativePath
-    footer___logo___localFile___root
-    footer___logo___localFile___size
-    footer___logo___localFile___sourceInstanceName
-    footer___logo___localFile___uid
-    footer___logo___localFile___url
-    footer___logo___mime
-    footer___logo___name
-    footer___logo___provider
-    footer___logo___size
-    footer___logo___updated_at
-    footer___logo___url
-    footer___logo___width
-    footer___smallText
-    id
-    internal___content
-    internal___contentDigest
-    internal___description
-    internal___fieldOwners
-    internal___ignoreType
-    internal___mediaType
-    internal___owner
-    internal___type
-    locale
-    localizations
-    localizations___id
-    localizations___locale
-    metaTitleSuffix
-    metadata___id
-    metadata___metaDescription
-    metadata___metaTitle
-    metadata___shareImage___alternativeText
-    metadata___shareImage___created_at
-    metadata___shareImage___ext
-    metadata___shareImage___hash
-    metadata___shareImage___height
-    metadata___shareImage___id
-    metadata___shareImage___localFile___absolutePath
-    metadata___shareImage___localFile___accessTime
-    metadata___shareImage___localFile___atime
-    metadata___shareImage___localFile___atimeMs
-    metadata___shareImage___localFile___base
-    metadata___shareImage___localFile___birthTime
-    metadata___shareImage___localFile___birthtime
-    metadata___shareImage___localFile___birthtimeMs
-    metadata___shareImage___localFile___blksize
-    metadata___shareImage___localFile___blocks
-    metadata___shareImage___localFile___changeTime
-    metadata___shareImage___localFile___children
-    metadata___shareImage___localFile___childrenImageSharp
-    metadata___shareImage___localFile___ctime
-    metadata___shareImage___localFile___ctimeMs
-    metadata___shareImage___localFile___dev
-    metadata___shareImage___localFile___dir
-    metadata___shareImage___localFile___ext
-    metadata___shareImage___localFile___extension
-    metadata___shareImage___localFile___gid
-    metadata___shareImage___localFile___id
-    metadata___shareImage___localFile___ino
-    metadata___shareImage___localFile___mode
-    metadata___shareImage___localFile___modifiedTime
-    metadata___shareImage___localFile___mtime
-    metadata___shareImage___localFile___mtimeMs
-    metadata___shareImage___localFile___name
-    metadata___shareImage___localFile___nlink
-    metadata___shareImage___localFile___prettySize
-    metadata___shareImage___localFile___publicURL
-    metadata___shareImage___localFile___rdev
-    metadata___shareImage___localFile___relativeDirectory
-    metadata___shareImage___localFile___relativePath
-    metadata___shareImage___localFile___root
-    metadata___shareImage___localFile___size
-    metadata___shareImage___localFile___sourceInstanceName
-    metadata___shareImage___localFile___uid
-    metadata___shareImage___localFile___url
-    metadata___shareImage___mime
-    metadata___shareImage___name
-    metadata___shareImage___provider
-    metadata___shareImage___size
-    metadata___shareImage___updated_at
-    metadata___shareImage___url
-    metadata___shareImage___width
-    metadata___twitterCardType
-    metadata___twitterUsername
-    navbar___button___id
-    navbar___button___newTab
-    navbar___button___text
-    navbar___button___type
-    navbar___button___url
-    navbar___id
-    navbar___links
-    navbar___links___id
-    navbar___links___newTab
-    navbar___links___text
-    navbar___links___url
-    navbar___logo___alternativeText
-    navbar___logo___created_at
-    navbar___logo___ext
-    navbar___logo___hash
-    navbar___logo___height
-    navbar___logo___id
-    navbar___logo___localFile___absolutePath
-    navbar___logo___localFile___accessTime
-    navbar___logo___localFile___atime
-    navbar___logo___localFile___atimeMs
-    navbar___logo___localFile___base
-    navbar___logo___localFile___birthTime
-    navbar___logo___localFile___birthtime
-    navbar___logo___localFile___birthtimeMs
-    navbar___logo___localFile___blksize
-    navbar___logo___localFile___blocks
-    navbar___logo___localFile___changeTime
-    navbar___logo___localFile___children
-    navbar___logo___localFile___childrenImageSharp
-    navbar___logo___localFile___ctime
-    navbar___logo___localFile___ctimeMs
-    navbar___logo___localFile___dev
-    navbar___logo___localFile___dir
-    navbar___logo___localFile___ext
-    navbar___logo___localFile___extension
-    navbar___logo___localFile___gid
-    navbar___logo___localFile___id
-    navbar___logo___localFile___ino
-    navbar___logo___localFile___mode
-    navbar___logo___localFile___modifiedTime
-    navbar___logo___localFile___mtime
-    navbar___logo___localFile___mtimeMs
-    navbar___logo___localFile___name
-    navbar___logo___localFile___nlink
-    navbar___logo___localFile___prettySize
-    navbar___logo___localFile___publicURL
-    navbar___logo___localFile___rdev
-    navbar___logo___localFile___relativeDirectory
-    navbar___logo___localFile___relativePath
-    navbar___logo___localFile___root
-    navbar___logo___localFile___size
-    navbar___logo___localFile___sourceInstanceName
-    navbar___logo___localFile___uid
-    navbar___logo___localFile___url
-    navbar___logo___mime
-    navbar___logo___name
-    navbar___logo___provider
-    navbar___logo___size
-    navbar___logo___updated_at
-    navbar___logo___url
-    navbar___logo___width
-    notificationBanner___id
-    notificationBanner___text
-    notificationBanner___type
-    parent___children
-    parent___children___children
-    parent___children___children___children
-    parent___children___children___id
-    parent___children___id
-    parent___children___internal___content
-    parent___children___internal___contentDigest
-    parent___children___internal___description
-    parent___children___internal___fieldOwners
-    parent___children___internal___ignoreType
-    parent___children___internal___mediaType
-    parent___children___internal___owner
-    parent___children___internal___type
-    parent___children___parent___children
-    parent___children___parent___id
-    parent___id
-    parent___internal___content
-    parent___internal___contentDigest
-    parent___internal___description
-    parent___internal___fieldOwners
-    parent___internal___ignoreType
-    parent___internal___mediaType
-    parent___internal___owner
-    parent___internal___type
-    parent___parent___children
-    parent___parent___children___children
-    parent___parent___children___id
-    parent___parent___id
-    parent___parent___internal___content
-    parent___parent___internal___contentDigest
-    parent___parent___internal___description
-    parent___parent___internal___fieldOwners
-    parent___parent___internal___ignoreType
-    parent___parent___internal___mediaType
-    parent___parent___internal___owner
-    parent___parent___internal___type
-    parent___parent___parent___children
-    parent___parent___parent___id
-    strapiId
-    updated_at
+enum Strapi_ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE {
+    alert
+    info
+    warning
 }
 
-enum StrapiPagesFieldsEnum {
-    children
-    children___children
-    children___children___children
-    children___children___children___children
-    children___children___children___id
-    children___children___id
-    children___children___internal___content
-    children___children___internal___contentDigest
-    children___children___internal___description
-    children___children___internal___fieldOwners
-    children___children___internal___ignoreType
-    children___children___internal___mediaType
-    children___children___internal___owner
-    children___children___internal___type
-    children___children___parent___children
-    children___children___parent___id
-    children___id
-    children___internal___content
-    children___internal___contentDigest
-    children___internal___description
-    children___internal___fieldOwners
-    children___internal___ignoreType
-    children___internal___mediaType
-    children___internal___owner
-    children___internal___type
-    children___parent___children
-    children___parent___children___children
-    children___parent___children___id
-    children___parent___id
-    children___parent___internal___content
-    children___parent___internal___contentDigest
-    children___parent___internal___description
-    children___parent___internal___fieldOwners
-    children___parent___internal___ignoreType
-    children___parent___internal___mediaType
-    children___parent___internal___owner
-    children___parent___internal___type
-    children___parent___parent___children
-    children___parent___parent___id
-    contentSections
-    created_at
-    id
-    internal___content
-    internal___contentDigest
-    internal___description
-    internal___fieldOwners
-    internal___ignoreType
-    internal___mediaType
-    internal___owner
-    internal___type
-    locale
-    localizations
-    localizations___id
-    localizations___locale
-    metadata___id
-    metadata___metaDescription
-    metadata___metaTitle
-    metadata___shareImage___alternativeText
-    metadata___shareImage___created_at
-    metadata___shareImage___ext
-    metadata___shareImage___hash
-    metadata___shareImage___height
-    metadata___shareImage___id
-    metadata___shareImage___localFile___absolutePath
-    metadata___shareImage___localFile___accessTime
-    metadata___shareImage___localFile___atime
-    metadata___shareImage___localFile___atimeMs
-    metadata___shareImage___localFile___base
-    metadata___shareImage___localFile___birthTime
-    metadata___shareImage___localFile___birthtime
-    metadata___shareImage___localFile___birthtimeMs
-    metadata___shareImage___localFile___blksize
-    metadata___shareImage___localFile___blocks
-    metadata___shareImage___localFile___changeTime
-    metadata___shareImage___localFile___children
-    metadata___shareImage___localFile___childrenImageSharp
-    metadata___shareImage___localFile___ctime
-    metadata___shareImage___localFile___ctimeMs
-    metadata___shareImage___localFile___dev
-    metadata___shareImage___localFile___dir
-    metadata___shareImage___localFile___ext
-    metadata___shareImage___localFile___extension
-    metadata___shareImage___localFile___gid
-    metadata___shareImage___localFile___id
-    metadata___shareImage___localFile___ino
-    metadata___shareImage___localFile___mode
-    metadata___shareImage___localFile___modifiedTime
-    metadata___shareImage___localFile___mtime
-    metadata___shareImage___localFile___mtimeMs
-    metadata___shareImage___localFile___name
-    metadata___shareImage___localFile___nlink
-    metadata___shareImage___localFile___prettySize
-    metadata___shareImage___localFile___publicURL
-    metadata___shareImage___localFile___rdev
-    metadata___shareImage___localFile___relativeDirectory
-    metadata___shareImage___localFile___relativePath
-    metadata___shareImage___localFile___root
-    metadata___shareImage___localFile___size
-    metadata___shareImage___localFile___sourceInstanceName
-    metadata___shareImage___localFile___uid
-    metadata___shareImage___localFile___url
-    metadata___shareImage___mime
-    metadata___shareImage___name
-    metadata___shareImage___provider
-    metadata___shareImage___size
-    metadata___shareImage___updated_at
-    metadata___shareImage___url
-    metadata___shareImage___width
-    metadata___twitterCardType
-    parent___children
-    parent___children___children
-    parent___children___children___children
-    parent___children___children___id
-    parent___children___id
-    parent___children___internal___content
-    parent___children___internal___contentDigest
-    parent___children___internal___description
-    parent___children___internal___fieldOwners
-    parent___children___internal___ignoreType
-    parent___children___internal___mediaType
-    parent___children___internal___owner
-    parent___children___internal___type
-    parent___children___parent___children
-    parent___children___parent___id
-    parent___id
-    parent___internal___content
-    parent___internal___contentDigest
-    parent___internal___description
-    parent___internal___fieldOwners
-    parent___internal___ignoreType
-    parent___internal___mediaType
-    parent___internal___owner
-    parent___internal___type
-    parent___parent___children
-    parent___parent___children___children
-    parent___parent___children___id
-    parent___parent___id
-    parent___parent___internal___content
-    parent___parent___internal___contentDigest
-    parent___parent___internal___description
-    parent___parent___internal___fieldOwners
-    parent___parent___internal___ignoreType
-    parent___parent___internal___mediaType
-    parent___parent___internal___owner
-    parent___parent___internal___type
-    parent___parent___parent___children
-    parent___parent___parent___id
-    shortName
-    slug
-    status
-    strapiId
-    updated_at
+enum Strapi_ENUM_COMPONENTLINKSBUTTONLINK_TYPE {
+    primary
+    secondary
+}
+
+enum Strapi_ENUM_COMPONENTLINKSBUTTON_TYPE {
+    primary
+    secondary
+}
+
+enum Strapi_ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE {
+    app
+    player
+    summary
+    summary_large_image
+}
+
+enum Strapi_ENUM_LEADFORMSUBMISSIONS_STATUS {
+    contacted
+    ignored
+    seen
+}
+
+enum Strapi_ENUM_PAGE_STATUS {
+    draft
+    published
+}
+
+enum Strapi_PublicationState {
+    LIVE
+    PREVIEW
 }
 
 input AVIFOptions {
@@ -3248,7 +3035,6 @@ input FileFilterInput {
     size: IntQueryOperatorInput
     sourceInstanceName: StringQueryOperatorInput
     uid: IntQueryOperatorInput
-    url: StringQueryOperatorInput
 }
 
 input FileSortInput {
@@ -3265,6 +3051,20 @@ input FloatQueryOperatorInput {
     lte: Float
     ne: Float
     nin: [Float]
+}
+
+input GraphQLSourceFilterInput {
+    children: NodeFilterListInput
+    fieldName: StringQueryOperatorInput
+    id: StringQueryOperatorInput
+    internal: InternalFilterInput
+    parent: NodeFilterInput
+    typeName: StringQueryOperatorInput
+}
+
+input GraphQLSourceSortInput {
+    fields: [GraphQLSourceFieldsEnum]
+    order: [SortOrderEnum] = [ASC]
 }
 
 input ImageSharpFilterInput {
@@ -3518,16 +3318,15 @@ input SitePluginPackageJsonPeerDependenciesFilterListInput {
 
 input SitePluginPluginOptionsFilterInput {
     allExtensions: BooleanQueryOperatorInput
-    apiURL: StringQueryOperatorInput
     background_color: StringQueryOperatorInput
     base64Width: IntQueryOperatorInput
     cacheDigest: StringQueryOperatorInput
     cache_busting_mode: StringQueryOperatorInput
-    collectionTypes: StringQueryOperatorInput
     crossOrigin: StringQueryOperatorInput
     defaultQuality: IntQueryOperatorInput
     display: StringQueryOperatorInput
     failOnError: BooleanQueryOperatorInput
+    fieldName: StringQueryOperatorInput
     icon: StringQueryOperatorInput
     include_favicon: BooleanQueryOperatorInput
     isTSX: BooleanQueryOperatorInput
@@ -3537,13 +3336,13 @@ input SitePluginPluginOptionsFilterInput {
     outputPath: StringQueryOperatorInput
     path: StringQueryOperatorInput
     pathCheck: BooleanQueryOperatorInput
-    queryLimit: IntQueryOperatorInput
     short_name: StringQueryOperatorInput
-    singleTypes: StringQueryOperatorInput
     start_url: StringQueryOperatorInput
     stripMetadata: BooleanQueryOperatorInput
     theme_color: StringQueryOperatorInput
     theme_color_in_head: BooleanQueryOperatorInput
+    typeName: StringQueryOperatorInput
+    url: StringQueryOperatorInput
 }
 
 input SitePluginSortInput {
@@ -3563,441 +3362,559 @@ input SiteSortInput {
     order: [SortOrderEnum] = [ASC]
 }
 
-input StrapiGlobalFaviconFilterInput {
-    alternativeText: StringQueryOperatorInput
-    created_at: DateQueryOperatorInput
-    ext: StringQueryOperatorInput
-    formats: StrapiGlobalFaviconFormatsFilterInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    id: IntQueryOperatorInput
-    localFile: FileFilterInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    provider: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    updated_at: DateQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentElementsFeatureColumnInput {
+    description: String
+    icon: ID
+    title: String!
 }
 
-input StrapiGlobalFaviconFormatsFilterInput {
-    small: StrapiGlobalFaviconFormatsSmallFilterInput
-    thumbnail: StrapiGlobalFaviconFormatsThumbnailFilterInput
+input Strapi_ComponentElementsFeatureInput {
+    name: String
 }
 
-input StrapiGlobalFaviconFormatsSmallFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentElementsFeatureRowInput {
+    description: String
+    link: Strapi_ComponentLinksLinkInput
+    media: ID
+    title: String!
 }
 
-input StrapiGlobalFaviconFormatsThumbnailFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentElementsFooterSectionInput {
+    links: [Strapi_ComponentLinksLinkInput]
+    title: String
 }
 
-input StrapiGlobalFilterInput {
-    children: NodeFilterListInput
-    created_at: DateQueryOperatorInput
-    favicon: StrapiGlobalFaviconFilterInput
-    footer: StrapiGlobalFooterFilterInput
-    id: StringQueryOperatorInput
-    internal: InternalFilterInput
-    locale: StringQueryOperatorInput
-    localizations: StrapiGlobalLocalizationsFilterListInput
-    metaTitleSuffix: StringQueryOperatorInput
-    metadata: StrapiGlobalMetadataFilterInput
-    navbar: StrapiGlobalNavbarFilterInput
-    notificationBanner: StrapiGlobalNotificationBannerFilterInput
-    parent: NodeFilterInput
-    strapiId: IntQueryOperatorInput
-    updated_at: DateQueryOperatorInput
+input Strapi_ComponentElementsLogoInput {
+    logo: ID
+    title: String
 }
 
-input StrapiGlobalFooterColumnsFilterInput {
-    id: IntQueryOperatorInput
-    links: StrapiGlobalFooterColumnsLinksFilterListInput
-    title: StringQueryOperatorInput
+input Strapi_ComponentElementsNotificationBannerInput {
+    text: String
+    type: Strapi_ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE!
 }
 
-input StrapiGlobalFooterColumnsFilterListInput {
-    elemMatch: StrapiGlobalFooterColumnsFilterInput
+input Strapi_ComponentElementsPlanInput {
+    description: String
+    features: [Strapi_ComponentElementsFeatureInput]
+    isRecommended: Boolean
+    name: String
+    price: Float
+    pricePeriod: String
 }
 
-input StrapiGlobalFooterColumnsLinksFilterInput {
-    id: IntQueryOperatorInput
-    newTab: BooleanQueryOperatorInput
-    text: StringQueryOperatorInput
-    url: StringQueryOperatorInput
+input Strapi_ComponentElementsTestimonialInput {
+    authorName: String
+    authorTitle: String
+    link: String
+    logo: ID
+    picture: ID
+    text: String
 }
 
-input StrapiGlobalFooterColumnsLinksFilterListInput {
-    elemMatch: StrapiGlobalFooterColumnsLinksFilterInput
+input Strapi_ComponentLayoutFooterInput {
+    columns: [Strapi_ComponentElementsFooterSectionInput]
+    logo: ID
+    smallText: String
 }
 
-input StrapiGlobalFooterFilterInput {
-    columns: StrapiGlobalFooterColumnsFilterListInput
-    id: IntQueryOperatorInput
-    logo: StrapiGlobalFooterLogoFilterInput
-    smallText: StringQueryOperatorInput
+input Strapi_ComponentLayoutNavbarInput {
+    button: Strapi_ComponentLinksButtonLinkInput
+    links: [Strapi_ComponentLinksLinkInput]
+    logo: ID
 }
 
-input StrapiGlobalFooterLogoFilterInput {
-    alternativeText: StringQueryOperatorInput
-    created_at: DateQueryOperatorInput
-    ext: StringQueryOperatorInput
-    formats: StrapiGlobalFooterLogoFormatsFilterInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    id: IntQueryOperatorInput
-    localFile: FileFilterInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    provider: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    updated_at: DateQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentLinksButtonInput {
+    text: String
+    type: Strapi_ENUM_COMPONENTLINKSBUTTON_TYPE
 }
 
-input StrapiGlobalFooterLogoFormatsFilterInput {
-    medium: StrapiGlobalFooterLogoFormatsMediumFilterInput
-    small: StrapiGlobalFooterLogoFormatsSmallFilterInput
-    thumbnail: StrapiGlobalFooterLogoFormatsThumbnailFilterInput
+input Strapi_ComponentLinksButtonLinkInput {
+    newTab: Boolean
+    text: String
+    type: Strapi_ENUM_COMPONENTLINKSBUTTONLINK_TYPE
+    url: String
 }
 
-input StrapiGlobalFooterLogoFormatsMediumFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentLinksLinkInput {
+    newTab: Boolean
+    text: String!
+    url: String!
 }
 
-input StrapiGlobalFooterLogoFormatsSmallFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentMetaMetadatumInput {
+    metaDescription: String!
+    metaTitle: String!
+    shareImage: ID
+    twitterCardType: Strapi_ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE
+    twitterUsername: String
 }
 
-input StrapiGlobalFooterLogoFormatsThumbnailFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentSectionsBottomActionInput {
+    buttons: [Strapi_ComponentLinksButtonLinkInput]
+    title: String
 }
 
-input StrapiGlobalLocalizationsFilterInput {
-    id: IntQueryOperatorInput
-    locale: StringQueryOperatorInput
+input Strapi_ComponentSectionsFeatureColumnsGroupInput {
+    features: [Strapi_ComponentElementsFeatureColumnInput]
 }
 
-input StrapiGlobalLocalizationsFilterListInput {
-    elemMatch: StrapiGlobalLocalizationsFilterInput
+input Strapi_ComponentSectionsFeatureRowsGroupInput {
+    features: [Strapi_ComponentElementsFeatureRowInput]
 }
 
-input StrapiGlobalMetadataFilterInput {
-    id: IntQueryOperatorInput
-    metaDescription: StringQueryOperatorInput
-    metaTitle: StringQueryOperatorInput
-    shareImage: StrapiGlobalMetadataShareImageFilterInput
-    twitterCardType: StringQueryOperatorInput
-    twitterUsername: StringQueryOperatorInput
+input Strapi_ComponentSectionsHeroInput {
+    buttons: [Strapi_ComponentLinksButtonLinkInput]
+    description: String
+    label: String
+    picture: ID
+    smallTextWithLink: String
+    title: String
 }
 
-input StrapiGlobalMetadataShareImageFilterInput {
-    alternativeText: StringQueryOperatorInput
-    created_at: DateQueryOperatorInput
-    ext: StringQueryOperatorInput
-    formats: StrapiGlobalMetadataShareImageFormatsFilterInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    id: IntQueryOperatorInput
-    localFile: FileFilterInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    provider: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    updated_at: DateQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentSectionsLargeVideoInput {
+    description: String
+    poster: ID
+    title: String
+    video: ID
 }
 
-input StrapiGlobalMetadataShareImageFormatsFilterInput {
-    large: StrapiGlobalMetadataShareImageFormatsLargeFilterInput
-    medium: StrapiGlobalMetadataShareImageFormatsMediumFilterInput
-    small: StrapiGlobalMetadataShareImageFormatsSmallFilterInput
-    thumbnail: StrapiGlobalMetadataShareImageFormatsThumbnailFilterInput
+input Strapi_ComponentSectionsLeadFormInput {
+    emailPlaceholder: String
+    location: String
+    submitButton: Strapi_ComponentLinksButtonInput
+    title: String
 }
 
-input StrapiGlobalMetadataShareImageFormatsLargeFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentSectionsPricingInput {
+    plans: [Strapi_ComponentElementsPlanInput]
+    title: String
 }
 
-input StrapiGlobalMetadataShareImageFormatsMediumFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentSectionsRichTextInput {
+    content: String
 }
 
-input StrapiGlobalMetadataShareImageFormatsSmallFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_ComponentSectionsTestimonialsGroupInput {
+    description: String
+    link: Strapi_ComponentLinksLinkInput
+    logos: [Strapi_ComponentElementsLogoInput]
+    testimonials: [Strapi_ComponentElementsTestimonialInput]
+    title: String
 }
 
-input StrapiGlobalMetadataShareImageFormatsThumbnailFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_FileInfoInput {
+    alternativeText: String
+    caption: String
+    name: String
 }
 
-input StrapiGlobalNavbarButtonFilterInput {
-    id: IntQueryOperatorInput
-    newTab: BooleanQueryOperatorInput
-    text: StringQueryOperatorInput
-    type: StringQueryOperatorInput
-    url: StringQueryOperatorInput
+input Strapi_FileInput {
+    alternativeText: String
+    caption: String
+    created_by: ID
+    ext: String
+    formats: Strapi_JSON
+    hash: String!
+    height: Int
+    mime: String!
+    name: String!
+    previewUrl: String
+    provider: String!
+    provider_metadata: Strapi_JSON
+    related: [ID]
+    size: Float!
+    updated_by: ID
+    url: String!
+    width: Int
 }
 
-input StrapiGlobalNavbarFilterInput {
-    button: StrapiGlobalNavbarButtonFilterInput
-    id: IntQueryOperatorInput
-    links: StrapiGlobalNavbarLinksFilterListInput
-    logo: StrapiGlobalNavbarLogoFilterInput
+input Strapi_GlobalInput {
+    created_by: ID
+    favicon: ID
+    footer: Strapi_ComponentLayoutFooterInput
+    locale: String
+    localizations: [ID]
+    metaTitleSuffix: String!
+    metadata: Strapi_ComponentMetaMetadatumInput
+    navbar: Strapi_ComponentLayoutNavbarInput
+    notificationBanner: Strapi_ComponentElementsNotificationBannerInput
+    updated_by: ID
 }
 
-input StrapiGlobalNavbarLinksFilterInput {
-    id: IntQueryOperatorInput
-    newTab: BooleanQueryOperatorInput
-    text: StringQueryOperatorInput
-    url: StringQueryOperatorInput
+input Strapi_InputID {
+    id: ID!
 }
 
-input StrapiGlobalNavbarLinksFilterListInput {
-    elemMatch: StrapiGlobalNavbarLinksFilterInput
+input Strapi_LeadFormSubmissionInput {
+    created_by: ID
+    email: String
+    location: String
+    status: Strapi_ENUM_LEADFORMSUBMISSIONS_STATUS
+    updated_by: ID
 }
 
-input StrapiGlobalNavbarLogoFilterInput {
-    alternativeText: StringQueryOperatorInput
-    created_at: DateQueryOperatorInput
-    ext: StringQueryOperatorInput
-    formats: StrapiGlobalNavbarLogoFormatsFilterInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    id: IntQueryOperatorInput
-    localFile: FileFilterInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    provider: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    updated_at: DateQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_LocaleInput {
+    code: String
+    created_by: ID
+    name: String
+    updated_by: ID
 }
 
-input StrapiGlobalNavbarLogoFormatsFilterInput {
-    medium: StrapiGlobalNavbarLogoFormatsMediumFilterInput
-    small: StrapiGlobalNavbarLogoFormatsSmallFilterInput
-    thumbnail: StrapiGlobalNavbarLogoFormatsThumbnailFilterInput
+input Strapi_PageInput {
+    contentSections: [Strapi_PageContentSectionsDynamicZoneInput!]
+    created_by: ID
+    locale: String
+    localizations: [ID]
+    metadata: Strapi_ComponentMetaMetadatumInput!
+    shortName: String
+    slug: String
+    status: Strapi_ENUM_PAGE_STATUS
+    updated_by: ID
 }
 
-input StrapiGlobalNavbarLogoFormatsMediumFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_RoleInput {
+    created_by: ID
+    description: String
+    name: String!
+    permissions: [ID]
+    type: String
+    updated_by: ID
+    users: [ID]
 }
 
-input StrapiGlobalNavbarLogoFormatsSmallFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_UserInput {
+    blocked: Boolean
+    confirmationToken: String
+    confirmed: Boolean
+    created_by: ID
+    email: String!
+    password: String
+    provider: String
+    resetPasswordToken: String
+    role: ID
+    updated_by: ID
+    username: String!
 }
 
-input StrapiGlobalNavbarLogoFormatsThumbnailFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_UsersPermissionsLoginInput {
+    identifier: String!
+    password: String!
+    provider: String = "local"
 }
 
-input StrapiGlobalNotificationBannerFilterInput {
-    id: IntQueryOperatorInput
-    text: StringQueryOperatorInput
-    type: StringQueryOperatorInput
+input Strapi_UsersPermissionsRegisterInput {
+    email: String!
+    password: String!
+    username: String!
 }
 
-input StrapiGlobalSortInput {
-    fields: [StrapiGlobalFieldsEnum]
-    order: [SortOrderEnum] = [ASC]
+input Strapi_createLeadFormSubmissionInput {
+    data: Strapi_LeadFormSubmissionInput
 }
 
-input StrapiPagesFilterInput {
-    children: NodeFilterListInput
-    contentSections: JSONQueryOperatorInput
-    created_at: DateQueryOperatorInput
-    id: StringQueryOperatorInput
-    internal: InternalFilterInput
-    locale: StringQueryOperatorInput
-    localizations: StrapiPagesLocalizationsFilterListInput
-    metadata: StrapiPagesMetadataFilterInput
-    parent: NodeFilterInput
-    shortName: StringQueryOperatorInput
-    slug: StringQueryOperatorInput
-    status: StringQueryOperatorInput
-    strapiId: IntQueryOperatorInput
-    updated_at: DateQueryOperatorInput
+input Strapi_createPageInput {
+    data: Strapi_PageInput
 }
 
-input StrapiPagesLocalizationsFilterInput {
-    id: IntQueryOperatorInput
-    locale: StringQueryOperatorInput
+input Strapi_createRoleInput {
+    data: Strapi_RoleInput
 }
 
-input StrapiPagesLocalizationsFilterListInput {
-    elemMatch: StrapiPagesLocalizationsFilterInput
+input Strapi_createUserInput {
+    data: Strapi_UserInput
 }
 
-input StrapiPagesMetadataFilterInput {
-    id: IntQueryOperatorInput
-    metaDescription: StringQueryOperatorInput
-    metaTitle: StringQueryOperatorInput
-    shareImage: StrapiPagesMetadataShareImageFilterInput
-    twitterCardType: StringQueryOperatorInput
+input Strapi_deleteFileInput {
+    where: Strapi_InputID
 }
 
-input StrapiPagesMetadataShareImageFilterInput {
-    alternativeText: StringQueryOperatorInput
-    created_at: DateQueryOperatorInput
-    ext: StringQueryOperatorInput
-    formats: StrapiPagesMetadataShareImageFormatsFilterInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    id: IntQueryOperatorInput
-    localFile: FileFilterInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    provider: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    updated_at: DateQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_deleteLeadFormSubmissionInput {
+    where: Strapi_InputID
 }
 
-input StrapiPagesMetadataShareImageFormatsFilterInput {
-    large: StrapiPagesMetadataShareImageFormatsLargeFilterInput
-    medium: StrapiPagesMetadataShareImageFormatsMediumFilterInput
-    small: StrapiPagesMetadataShareImageFormatsSmallFilterInput
-    thumbnail: StrapiPagesMetadataShareImageFormatsThumbnailFilterInput
+input Strapi_deletePageInput {
+    where: Strapi_InputID
 }
 
-input StrapiPagesMetadataShareImageFormatsLargeFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_deleteRoleInput {
+    where: Strapi_InputID
 }
 
-input StrapiPagesMetadataShareImageFormatsMediumFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_deleteUserInput {
+    where: Strapi_InputID
 }
 
-input StrapiPagesMetadataShareImageFormatsSmallFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_editComponentElementsFeatureColumnInput {
+    description: String
+    icon: ID
+    id: ID
+    title: String
 }
 
-input StrapiPagesMetadataShareImageFormatsThumbnailFilterInput {
-    ext: StringQueryOperatorInput
-    hash: StringQueryOperatorInput
-    height: IntQueryOperatorInput
-    mime: StringQueryOperatorInput
-    name: StringQueryOperatorInput
-    size: FloatQueryOperatorInput
-    url: StringQueryOperatorInput
-    width: IntQueryOperatorInput
+input Strapi_editComponentElementsFeatureInput {
+    id: ID
+    name: String
 }
 
-input StrapiPagesSortInput {
-    fields: [StrapiPagesFieldsEnum]
-    order: [SortOrderEnum] = [ASC]
+input Strapi_editComponentElementsFeatureRowInput {
+    description: String
+    id: ID
+    link: Strapi_editComponentLinksLinkInput
+    media: ID
+    title: String
+}
+
+input Strapi_editComponentElementsFooterSectionInput {
+    id: ID
+    links: [Strapi_editComponentLinksLinkInput]
+    title: String
+}
+
+input Strapi_editComponentElementsLogoInput {
+    id: ID
+    logo: ID
+    title: String
+}
+
+input Strapi_editComponentElementsNotificationBannerInput {
+    id: ID
+    text: String
+    type: Strapi_ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE
+}
+
+input Strapi_editComponentElementsPlanInput {
+    description: String
+    features: [Strapi_editComponentElementsFeatureInput]
+    id: ID
+    isRecommended: Boolean
+    name: String
+    price: Float
+    pricePeriod: String
+}
+
+input Strapi_editComponentElementsTestimonialInput {
+    authorName: String
+    authorTitle: String
+    id: ID
+    link: String
+    logo: ID
+    picture: ID
+    text: String
+}
+
+input Strapi_editComponentLayoutFooterInput {
+    columns: [Strapi_editComponentElementsFooterSectionInput]
+    id: ID
+    logo: ID
+    smallText: String
+}
+
+input Strapi_editComponentLayoutNavbarInput {
+    button: Strapi_editComponentLinksButtonLinkInput
+    id: ID
+    links: [Strapi_editComponentLinksLinkInput]
+    logo: ID
+}
+
+input Strapi_editComponentLinksButtonInput {
+    id: ID
+    text: String
+    type: Strapi_ENUM_COMPONENTLINKSBUTTON_TYPE
+}
+
+input Strapi_editComponentLinksButtonLinkInput {
+    id: ID
+    newTab: Boolean
+    text: String
+    type: Strapi_ENUM_COMPONENTLINKSBUTTONLINK_TYPE
+    url: String
+}
+
+input Strapi_editComponentLinksLinkInput {
+    id: ID
+    newTab: Boolean
+    text: String
+    url: String
+}
+
+input Strapi_editComponentMetaMetadatumInput {
+    id: ID
+    metaDescription: String
+    metaTitle: String
+    shareImage: ID
+    twitterCardType: Strapi_ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE
+    twitterUsername: String
+}
+
+input Strapi_editComponentSectionsBottomActionInput {
+    buttons: [Strapi_editComponentLinksButtonLinkInput]
+    id: ID
+    title: String
+}
+
+input Strapi_editComponentSectionsFeatureColumnsGroupInput {
+    features: [Strapi_editComponentElementsFeatureColumnInput]
+    id: ID
+}
+
+input Strapi_editComponentSectionsFeatureRowsGroupInput {
+    features: [Strapi_editComponentElementsFeatureRowInput]
+    id: ID
+}
+
+input Strapi_editComponentSectionsHeroInput {
+    buttons: [Strapi_editComponentLinksButtonLinkInput]
+    description: String
+    id: ID
+    label: String
+    picture: ID
+    smallTextWithLink: String
+    title: String
+}
+
+input Strapi_editComponentSectionsLargeVideoInput {
+    description: String
+    id: ID
+    poster: ID
+    title: String
+    video: ID
+}
+
+input Strapi_editComponentSectionsLeadFormInput {
+    emailPlaceholder: String
+    id: ID
+    location: String
+    submitButton: Strapi_editComponentLinksButtonInput
+    title: String
+}
+
+input Strapi_editComponentSectionsPricingInput {
+    id: ID
+    plans: [Strapi_editComponentElementsPlanInput]
+    title: String
+}
+
+input Strapi_editComponentSectionsRichTextInput {
+    content: String
+    id: ID
+}
+
+input Strapi_editComponentSectionsTestimonialsGroupInput {
+    description: String
+    id: ID
+    link: Strapi_editComponentLinksLinkInput
+    logos: [Strapi_editComponentElementsLogoInput]
+    testimonials: [Strapi_editComponentElementsTestimonialInput]
+    title: String
+}
+
+input Strapi_editFileInput {
+    alternativeText: String
+    caption: String
+    created_by: ID
+    ext: String
+    formats: Strapi_JSON
+    hash: String
+    height: Int
+    mime: String
+    name: String
+    previewUrl: String
+    provider: String
+    provider_metadata: Strapi_JSON
+    related: [ID]
+    size: Float
+    updated_by: ID
+    url: String
+    width: Int
+}
+
+input Strapi_editGlobalInput {
+    created_by: ID
+    favicon: ID
+    footer: Strapi_editComponentLayoutFooterInput
+    locale: String
+    localizations: [ID]
+    metaTitleSuffix: String
+    metadata: Strapi_editComponentMetaMetadatumInput
+    navbar: Strapi_editComponentLayoutNavbarInput
+    notificationBanner: Strapi_editComponentElementsNotificationBannerInput
+    updated_by: ID
+}
+
+input Strapi_editLeadFormSubmissionInput {
+    created_by: ID
+    email: String
+    location: String
+    status: Strapi_ENUM_LEADFORMSUBMISSIONS_STATUS
+    updated_by: ID
+}
+
+input Strapi_editLocaleInput {
+    code: String
+    created_by: ID
+    name: String
+    updated_by: ID
+}
+
+input Strapi_editPageInput {
+    contentSections: [Strapi_PageContentSectionsDynamicZoneInput!]
+    created_by: ID
+    locale: String
+    localizations: [ID]
+    metadata: Strapi_editComponentMetaMetadatumInput
+    shortName: String
+    slug: String
+    status: Strapi_ENUM_PAGE_STATUS
+    updated_by: ID
+}
+
+input Strapi_editRoleInput {
+    created_by: ID
+    description: String
+    name: String
+    permissions: [ID]
+    type: String
+    updated_by: ID
+    users: [ID]
+}
+
+input Strapi_editUserInput {
+    blocked: Boolean
+    confirmationToken: String
+    confirmed: Boolean
+    created_by: ID
+    email: String
+    password: String
+    provider: String
+    resetPasswordToken: String
+    role: ID
+    updated_by: ID
+    username: String
+}
+
+input Strapi_updateGlobalInput {
+    data: Strapi_editGlobalInput
+}
+
+input Strapi_updateLeadFormSubmissionInput {
+    data: Strapi_editLeadFormSubmissionInput
+    where: Strapi_InputID
+}
+
+input Strapi_updatePageInput {
+    data: Strapi_editPageInput
+    where: Strapi_InputID
+}
+
+input Strapi_updateRoleInput {
+    data: Strapi_editRoleInput
+    where: Strapi_InputID
+}
+
+input Strapi_updateUserInput {
+    data: Strapi_editUserInput
+    where: Strapi_InputID
 }
 
 input StringQueryOperatorInput {
@@ -4028,3 +3945,24 @@ scalar Date
 
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
+
+"Input type for dynamic zone contentSections of Page"
+scalar Strapi_PageContentSectionsDynamicZoneInput
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar Strapi_JSON
+
+"A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar Strapi_DateTime
+
+"A time string with format: HH:mm:ss.SSS"
+scalar Strapi_Time
+
+"A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar Strapi_Date
+
+"The `Long` scalar type represents 52-bit integers"
+scalar Strapi_Long
+
+"The `Upload` scalar type represents a file upload."
+scalar Strapi_Upload

@@ -9,8 +9,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const result = await graphql(
     `
       {
-        allStrapiPages {
-          nodes {
+        strapi {
+          pages {
             id
             slug
           }
@@ -27,7 +27,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  const pages = result.data.allStrapiPages.nodes
+  const pages = result.data.strapi.pages
 
   // Create pages
   // But only if there's at least one page found in Strapi

@@ -9,8 +9,8 @@ const Navigation: React.FC<NavigationProps> = () => {
   const data: GatsbyTypes.NavigationQuery = useStaticQuery<GatsbyTypes.NavigationQuery>(
     graphql`
         query Navigation {
-            allStrapiPages {
-                nodes {
+            strapi {
+                pages {
                     id
                     shortName
                     slug
@@ -27,7 +27,7 @@ const Navigation: React.FC<NavigationProps> = () => {
         <span className={styles.navigationItem}>WL Example App</span>
       </Link>
       <ul className={styles.navigation}>
-        {data.allStrapiPages?.nodes?.map((page) => (
+        {data.strapi?.pages?.map((page) => (
           <li key={page!.id} className={styles.navigationItem}>
             <Link to={`/${page!.slug || ''}`} activeClassName="active">
               {page!.shortName}

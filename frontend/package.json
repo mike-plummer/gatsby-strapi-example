@@ -14,6 +14,7 @@
     "gatsby-plugin-sharp": "^4.0.0-zz-next.1",
     "gatsby-plugin-typegen": "^2.2.4",
     "gatsby-source-filesystem": "^4.0.0-zz-next.1",
+    "gatsby-source-graphql": "^4.0.0-zz-next.1",
     "gatsby-source-strapi": "^1.0.2",
     "gatsby-transformer-sharp": "^4.0.0-zz-next.1",
     "prop-types": "^15.7.2",
